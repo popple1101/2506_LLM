@@ -10,7 +10,7 @@ def get_ai_response(question, functions=None):
    fn_name = getattr(response.choices[0].message.function_call, "name", None)
    if fn_name:
     # 함수 호출 : get_current_time_tz , get_current_date_tz 는 인자가 필요합니다.
-    # function_call.arguments 를 dict 로 변환
+    # function_call.arguments 문자열을 dict 로 변환
     tz = json.loads(response.choices[0].message.function_call.arguments)
     func_response =  globals()[fn_name](**tz)
     followup_response=get_followup_response_tz(fn_name,func_response)
